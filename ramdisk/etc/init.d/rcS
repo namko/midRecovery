@@ -1,0 +1,80 @@
+#!/bin/sh
+
+PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/lib:
+runlevel=S
+prevlevel=N
+umask 022
+export PATH runlevel prevlevel
+
+#
+#	Trap CTRL-C &c only in this shell so we can interrupt subprocesses.
+#
+trap ":" INT QUIT TSTP
+
+/bin/mount -t proc  none  /proc
+/bin/mount -t sysfs none  /sys
+
+/bin/mkdir -p /var/lib
+/bin/mkdir -p /var/run
+/bin/mkdir -p /var/log
+
+/bin/mkdir -p /mnt/nand
+/bin/mkdir -p /mnt/intsd
+/bin/mkdir -p /mnt/cache
+/bin/mkdir -p /mnt/data
+/bin/mkdir -p /mnt/system
+/bin/mkdir -p /mnt/sdcard
+/bin/mkdir -p /mnt/tmp
+/bin/mkdir -p /mnt/root
+
+if [ ! -c /dev/apm_bios ]; then
+	/bin/mknod /dev/apm_bios c 10 134
+fi
+if [ ! -c /dev/adc ]; then
+	/bin/mknod /dev/adc c 10 132
+fi
+if [ ! -c /dev/fb0 ]; then
+	/bin/mknod /dev/fb0 c 29 0
+fi
+
+if [ ! -c /dev/input/event0 ]; then
+	/bin/mkdir -p /dev/input
+	/bin/mknod /dev/input/event0 c 13 64
+	/bin/mknod /dev/input/event1 c 13 65
+fi
+
+echo  "Starting mdev ..."
+if [ ! -f /etc/_scan ]; then
+	echo "Scan mdev ..."
+	/sbin/mdev -s
+	touch /etc/_scan
+fi
+echo /sbin/mdev > /proc/sys/kernel/hotplug
+
+/bin/hostname -F /etc/hostname
+
+echo "=============================="				> "/dev/tty0"
+LOG_DEV=/dev/mmcblk0p1
+LOG_PATH=/mnt/intsd
+DEVICE=int
+
+if [ -e /dev/mmcblk1p1 ]; then
+	echo "Detected external SD card..."				> "/dev/tty0"
+	LOG_DEV=/dev/mmcblk1p1
+	LOG_PATH=/mnt/sdcard
+    DEVICE=ext
+fi
+
+LOG_FILE=$LOG_PATH/log.txt
+
+echo "Mounting SD card..."							> "/dev/tty0"
+mount $LOG_DEV $LOG_PATH							> "/dev/tty0"
+[ -e $LOG_FILE ] && rm $LOG_FILE
+
+echo "Starting MID recovery..."						> "/dev/tty0"
+/sbin/midRecovery $LOG_FILE							> "/dev/tty0"
+
+echo "Shutdown in 10 seconds..."					> "/dev/tty0"
+sleep 10
+reboot -f
+

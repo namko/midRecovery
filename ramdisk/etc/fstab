@@ -1,0 +1,5 @@
+none			/proc		proc	defaults  0 0
+none			/dev/pts	devpts	mode=0622 0 0
+tmpfs			/dev/shm	tmpfs	defaults  0 0
+/dev/sda1		/mnt/u-disk	vfat	defaults  0 0
+/dev/mtdblock3          /ebrmain        yaffs2  defaults  0 0

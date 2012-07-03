@@ -1,0 +1,46 @@
+#!/bin/sh
+
+make_partitions() {
+	SIZE_CACHE=$2
+	SIZE_DATA=$3
+	SIZE_ROOTFS=$4
+	START_CACHE=32
+	END_CACHE=$(($START_CACHE+$SIZE_CACHE))	
+	START_DATA=$(($END_CACHE+1))
+	END_DATA=$(($START_DATA+$SIZE_DATA))	
+	START_ROOTFS=$(($END_DATA+1))	
+	END_ROOTFS=$(($START_ROOTFS+$SIZE_ROOTFS))	
+	START_SDCARD=$(($END_ROOTFS+1))
+	
+	fdisk $1 -H 64 -S 32 << FDISK_END
+o
+n
+p
+2
+${START_CACHE}
+${END_CACHE}
+n
+p
+3
+${START_DATA}
+${END_DATA}
+n
+p
+4
+${START_ROOTFS}
+${END_ROOTFS}
+n
+p
+$START_SDCARD
+
+t
+1
+c
+p
+w
+FDISK_END
+	sync
+}
+
+make_partitions $1 $2 $3 $4
+
