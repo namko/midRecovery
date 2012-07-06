@@ -7,7 +7,7 @@
 bool FlashROM() {
     const char *rootfsNames[] = {
         "utv210_root.tgz", "utv210_root.tar", 
-        "rootfs.tgz", "root.tgz" "rootfs.tar", "root.tar", 
+        "rootfs.tgz", "root.tgz", "rootfs.tar", "root.tar", 
         "utv210_rootfs.tgz", "utv210_rootfs.tar", 
         "system.tgz", "system.tar", "update.zip", NULL
     };
