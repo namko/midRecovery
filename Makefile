@@ -5,7 +5,7 @@ ARM-CXX := arm-none-linux-gnueabi-g++
 KERNELDIR := /mnt/android/kernel
 
 # Recovery binary version
-RECOVERY_VERSION := "\"v0.90 (Beta)\""
+RECOVERY_VERSION := "\"v0.91 (Beta)\""
 
 # Files
 DIRCHECK := .dircheck
