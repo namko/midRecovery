@@ -59,6 +59,7 @@ $(OBJDIR)/$(DIRCHECK):
 	echo > $(OBJDIR)/$(DIRCHECK)
 
 clean:
+	rm -f $(RECOVERYDIR)/sbin/$(BINARY)
 	rm -rf $(OBJDIR)/$(DIRCHECK)
 	rm -rf $(OBJDIR)/*
 
