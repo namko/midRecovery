@@ -111,23 +111,6 @@ static bool FlashRecovery() {
     return FlashMTD(gMTDs[MTD_RECOVERY]);
 }
 
-static bool FlashBootArgs() {
-    gTerminal.clear();
-    cout << "WARNING!!! Incorrectly modifiying bootloader arguments" << endl 
-        << "may render your tablet unbootable! To continue, press" << endl
-        << "HOME key twice or any other combination to cancel." << endl;
-
-    if (GetButtonPress() != KEY_HOME)
-        return false;
-
-    cout << "Press HOME key again. This *will* flash the bootloader arguments." << endl;
-
-    if (GetButtonPress() != KEY_HOME)
-        return false;
-
-    return FlashMTD(gMTDs[MTD_BOOTARGS]);
-}
-
 static bool FlashParameters() {
     return FlashMTD(gMTDs[MTD_PARAM]);
 }

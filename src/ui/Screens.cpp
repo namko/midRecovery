@@ -58,7 +58,6 @@ Window *WinSetup() {
     partitions.push_back(WindowOption("Flash logo",             FlashLogo));
     partitions.push_back(WindowOption("Flash kernel",           FlashKernel));
     partitions.push_back(WindowOption("Flash recovery",         FlashRecovery));
-    partitions.push_back(WindowOption("Flash bootargs",         FlashBootArgs));
     partitions.push_back(WindowOption("Flash parameters",       FlashParameters));
     partitions.push_back(WindowOption("(Back)",                 DisplayMainWindow));
 
