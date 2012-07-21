@@ -66,6 +66,7 @@ Window *WinSetup() {
     adv.push_back(WindowOption("Partition SD card",             PartitionSDCard));
     adv.push_back(WindowOption("Fix ROM Permissions",           FixROMPermissions));
     adv.push_back(WindowOption("File Inspector",                ShowFileInspector));
+    adv.push_back(WindowOption("Dump Kernel Messages",          DumpKernelMessages));
     adv.push_back(WindowOption("(Back)",                        DisplayMainWindow));
 
     main.push_back(WindowOption("Flash ROM",                    FlashROM));

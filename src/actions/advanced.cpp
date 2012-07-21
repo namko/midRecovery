@@ -216,3 +216,13 @@ bool ShowFileInspector() {
     return false;
 }
 
+bool DumpKernelMessages() {
+    gTerminal.clear();
+    cout << "Dumping kernel messages..." << endl;
+
+    if (ExecuteAndNotifyIfFail("dmesg"))
+        cout << "Success! Entire \"dmesg\" dumped to log!" << endl;
+
+    NotifyWaitForButton();
+    return false;
+}
