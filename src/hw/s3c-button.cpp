@@ -63,12 +63,21 @@ WindowInput S3CButton::GetKeyPress() {
 
 		if (ev.type == EV_KEY && ev.value != 0) {
             switch (ev.code) {
+#if TARGET == 703
             case KEY_HOME:
                 return WI_SELECT;
             case KEY_MENU:
                 return WI_UP;
             case KEY_BACK:
                 return WI_DOWN;
+#elif TARGET == 7024
+            case KEY_BACK:  /* driver returns BACK on pressing HOME */
+                return WI_SELECT;
+            case KEY_END:
+                return WI_DOWN;
+#endif
+            default:
+                return WindowInput(-1);
             }
         }
     }

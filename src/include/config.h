@@ -69,7 +69,7 @@ static const char *SYS_SYSTEM = "/sys/block/mmcblk0/mmcblk0p4";
     static const int MAX_INNER_WIDTH = 80;
     static const int MAX_INNER_HEIGHT = 20;
 
-#elif TARGET == 703
+#elif TARGET == 703 || TARGET == 7024
     #include "../hw/s3c-button.h"
 
     // For builds on MID703, use s3c-button input function.

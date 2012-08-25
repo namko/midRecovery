@@ -24,7 +24,7 @@ MTD::MTD(const char *name, const char *device,
 }
 
 void MTD::Init() {
-#if TARGET == 703
+#if TARGET == 703 || TARGET == 7024
     gMTDs[MTD_BOOTLOADER] = MTD("bootloader",   "/dev/mtd6",    "/sys/block/mtdblock6", 6,  0x00000000, 0x00080000, "u-boot.bin",   "u-boot.bin");
     gMTDs[MTD_BOOTARGS] =   MTD("bootargs",     "/dev/mtd0",    "/sys/block/mtdblock0", 0,  0x00080000, 0x00080000, "u-boot.arg",   "u-boot.arg");
     gMTDs[MTD_RECOVERY] =   MTD("recovery",     "/dev/mtd1",    "/sys/block/mtdblock1", 1,  0x00100000, 0x00800000, "recovery",     "recovery"  );

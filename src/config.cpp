@@ -11,7 +11,7 @@
 #include "include/log.h"
 #include "hw/mtd.h"
 
-#if TARGET == 703
+#if TARGET == 703 || TARGET == 7024
 #include "hw/s3c-button.h"
 #endif
 
@@ -35,7 +35,7 @@ void ConfigInit(const int argc, const char *argv[]) {
 
     MTD::Init();
 
-#if TARGET == 703
+#if TARGET == 703 || TARGET == 7024
     if (!S3CButton::Initialize()) {
         log << ERRR << "Problem initializing s3c-button." << endl;
         exit(2);
